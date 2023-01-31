@@ -1,0 +1,20 @@
+{
+  "name": "js_01.23",
+  "version": "1.0.0",
+  "description": "��#\u0000 \u0000J\u0000S\u0000_\u00000\u00001\u0000.\u00002\u00003\u0000\r\u0000 \u0000",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "lint": "eslint index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Anastacia10/JS_01.23.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Anastacia10/JS_01.23/issues"
+  },
+  "homepage": "https://github.com/Anastacia10/JS_01.23#readme"
+}
