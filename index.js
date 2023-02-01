@@ -1,6 +1,6 @@
 //First Task
 const isInteger = (value) =>{
-  return (value > 0) && Number.isInteger(value) && Number.isSafeInteger(value);
+  return (value >= 0) && Number.isInteger(value) && Number.isSafeInteger(value);
 };
 
 const getPrimes = (num) =>{
@@ -49,14 +49,14 @@ const getNumberData = () =>{
     return console.log('Exit');
   }
   else if(!isInteger(+value)){
-    console.log( 'Incorrect input!');
+    console.log('Incorrect input!');
     return getNumberData();
   }else{
-    const factorial = findFactorial(value);
+    const factorial = findFactorial(+value);
     const square = value **2;
-    const isPrimeStatus = isPrime(value);
-    const isEvenStatus = isEven(value);
-    const delimiters = findDelimiters(value);
+    const isPrimeStatus = isPrime(+value);
+    const isEvenStatus = isEven(+value);
+    const delimiters = findDelimiters(+value);
 
     return console.log(`
       number: ${value}
