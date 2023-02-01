@@ -1,6 +1,6 @@
 //First Task
 const isInteger = (value) =>{
-  return (value >= 0) && Number.isInteger(value) && Number.isSafeInteger(value);
+  return (value > 0) && Number.isInteger(value) && Number.isSafeInteger(value);
 };
 
 const getPrimes = (num) =>{
@@ -43,14 +43,14 @@ const findDelimiters = (num) =>{
   return delimetrs.sort((a, b) => b - a);
 };
 
-const numberData = () =>{
-  let value = prompt('Enter an integer: ', 1);
+const getNumberData = () =>{
+  let value = prompt('First task: Enter an integer: ', 1);
   if(value === null){
     return console.log('Exit');
   }
   else if(!isInteger(+value)){
     console.log( 'Incorrect input!');
-    return numberData();
+    return getNumberData();
   }else{
     const factorial = findFactorial(value);
     const square = value **2;
@@ -68,4 +68,29 @@ const numberData = () =>{
     `);
   }
 };
-numberData();
+getNumberData();
+
+//Second task
+const isValidString = (str) =>{
+  return str.length > 0 && str.length <= 3 && str !== " ";
+};
+
+const isValidNumber = (num) =>{
+  return isInteger(num) && num > 0 && num < 10;
+};
+
+const drawSquareOfStrings = () =>{
+  const str = prompt('Second Task: Enter 1 to 3 chars');
+  const num = +prompt('Second task Enter a number from 1-9');
+  if(str === null || num === null){
+    return console.log('Exit');
+  }else if(!isValidString(str) || !isValidNumber(num)){
+    console.log('Incorrect input!');
+    return drawSquareOfStrings();
+  }else{
+    const row = (str + " ").repeat(num-1) + str;
+    const table = new Array(num).fill(row).join('\n');
+    return console.log(table);
+  }
+};
+drawSquareOfStrings();
