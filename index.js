@@ -81,16 +81,20 @@ const isValidNumber = (num) =>{
 
 const drawSquareOfStrings = () =>{
   const str = prompt('Second Task: Enter 1 to 3 chars');
-  const num = +prompt('Second task Enter a number from 1-9');
-  if(str === null || num === null){
-    return console.log('Exit');
-  }else if(!isValidString(str) || !isValidNumber(num)){
+  if(!isValidString(str)){
     console.log('Incorrect input!');
     return drawSquareOfStrings();
-  }else{
-    const row = (str + " ").repeat(num-1) + str;
-    const table = new Array(num).fill(row).join('\n');
-    return console.log(table);
   }
+  const num = +prompt('Second task Enter a number from 1-9');
+  if(!isValidNumber(num)){
+    console.log('Incorrect input!');
+    return drawSquareOfStrings();
+  }
+  if(str === null || num === null){
+    return console.log('Exit');
+  }
+  const row = (str + " ").repeat(num-1) + str;
+  const table = new Array(num).fill(row).join('\n');
+  return console.log(table);
 };
 drawSquareOfStrings();
