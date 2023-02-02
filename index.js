@@ -44,11 +44,11 @@ const findDelimiters = (num) =>{
 };
 
 const getNumberData = () =>{
-  let value = prompt('First task: Enter an integer: ', 1);
+  let value = prompt('First task: Enter an integer: ');
   if(value === null){
     return console.log('Exit');
   }
-  else if(!isInteger(+value)){
+  else if(!isInteger(+value) || value === ""){
     console.log('Incorrect input!');
     return getNumberData();
   }else{
