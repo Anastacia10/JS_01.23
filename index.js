@@ -68,16 +68,16 @@ const copyObject = (obj) =>{
     };
     return result;
   }
-}
+};
 
 const makeDeepCopy = (value) =>{
   if(isPrimitive(value)){
     throw new Error();
-
+    
   }else{
     return copyObject(value);
   }
-}
+};
 
 const selectFromInterval = (arr, firstNumber, secondNumber) =>{
   if(!isValidArray(arr) || !isAllNumbers([firstNumber, secondNumber])){
@@ -88,11 +88,11 @@ const selectFromInterval = (arr, firstNumber, secondNumber) =>{
     });
     const [min, max] = interval;
     const filteredArr = arr.filter((el) =>{st
-      return (el >= min && el<= max) ? true : false
-    })
+      return (el >= min && el<= max) ? true : false;
+    });
     return filteredArr;
   }
-}
+};
 
 const createIterable = (fromNum, toNum) =>{
   if(!isAllNumbers([fromNum, toNum]) || (fromNum >= toNum)){
@@ -113,10 +113,7 @@ const createIterable = (fromNum, toNum) =>{
     };
     return obj;
   } 
-}
-
- 
-
+};
 
 
 
