@@ -1,4 +1,7 @@
-const isObject = (value) =>{
+const isArray = (value) =>{
+  return Object.prototype.toString.call(value) == '[object Array]';
+};
+/*const isObject = (value) =>{
   return Object.prototype.toString.call(value) == '[object Object]';
 };
 
@@ -63,8 +66,35 @@ const makeDeepCopy = (value) =>{
   }else{
     return copyObject(value);
   }
-}
+}*/
+const isNumber = (value) =>{
+  return Number.isInteger(value) && Number.isSafeInteger(value);
+};
 
+const isAllNumbers = (arr) =>{
+  return arr.every((el) =>{ 
+    return isNumber(el);
+  });
+};
+
+const isValidArray = (arr) =>{
+  return (isArray(arr) && arr.length !== 0) ? isAllNumbers(arr) : false;
+};
+
+const selectFromInterval = (arr, firstNumber, secondNumber) =>{
+  if(!isValidArray(arr) || !isAllNumbers([firstNumber, secondNumber])){
+    throw new Error();
+  }else{
+    const interval = [firstNumber, secondNumber].sort((a,b) =>{
+      return a-b;
+    });
+    const [min, max] = interval;
+    const filteredArr = arr.filter((el) =>{
+      return (el >= min && el<= max) ? true : false
+    })
+    return filteredArr;
+  }
+}
 
 
 
