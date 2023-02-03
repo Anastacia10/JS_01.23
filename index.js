@@ -1,7 +1,4 @@
-const isArray = (value) =>{
-  return Object.prototype.toString.call(value) == '[object Array]';
-};
-/*const isObject = (value) =>{
+const isObject = (value) =>{
   return Object.prototype.toString.call(value) == '[object Object]';
 };
 
@@ -25,6 +22,20 @@ const isSet = (value) =>{
   return Object.prototype.toString.call(value) == '[object Set]';
 };
 
+const isNumber = (value) =>{
+  return Number.isInteger(value) && Number.isSafeInteger(value);
+};
+
+const isAllNumbers = (arr) =>{
+  return arr.every((el) =>{ 
+    return isNumber(el);
+  });
+};
+
+const isValidArray = (arr) =>{
+  return (isArray(arr) && arr.length !== 0) ? isAllNumbers(arr) : false;
+};
+
 const copyObject = (obj) =>{
   if(isPrimitive(obj)){
     return obj;
@@ -39,7 +50,7 @@ const copyObject = (obj) =>{
 
   }else if(isMap(obj)){
     const newMap = new Map();
-    for (const key of obj.keys()) {
+    for (const key of obj.keys()){
       const value  = copyObject(obj.get(key));
       newMap.set(key, value);
     }
@@ -66,20 +77,7 @@ const makeDeepCopy = (value) =>{
   }else{
     return copyObject(value);
   }
-}*/
-const isNumber = (value) =>{
-  return Number.isInteger(value) && Number.isSafeInteger(value);
-};
-
-const isAllNumbers = (arr) =>{
-  return arr.every((el) =>{ 
-    return isNumber(el);
-  });
-};
-
-const isValidArray = (arr) =>{
-  return (isArray(arr) && arr.length !== 0) ? isAllNumbers(arr) : false;
-};
+}
 
 const selectFromInterval = (arr, firstNumber, secondNumber) =>{
   if(!isValidArray(arr) || !isAllNumbers([firstNumber, secondNumber])){
@@ -89,12 +87,36 @@ const selectFromInterval = (arr, firstNumber, secondNumber) =>{
       return a-b;
     });
     const [min, max] = interval;
-    const filteredArr = arr.filter((el) =>{
+    const filteredArr = arr.filter((el) =>{st
       return (el >= min && el<= max) ? true : false
     })
     return filteredArr;
   }
 }
+
+const createIterable = (fromNum, toNum) =>{
+  if(!isAllNumbers([fromNum, toNum]) || (fromNum >= toNum)){
+    throw new Error();
+  }else{
+    const obj = {
+      from: fromNum,
+      to: toNum,
+    };
+    obj[Symbol.iterator] = function(){
+      return {
+        current: this.from,
+        last: this.to,
+        next(){
+          return (this.current <= this.last) ? {done: false, value: this.current++} : {done: true};
+        }
+      }
+    };
+    return obj;
+  } 
+}
+
+ 
+
 
 
 
