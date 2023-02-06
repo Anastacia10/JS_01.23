@@ -1,119 +1,124 @@
-const isObject = (value) =>{
-  return Object.prototype.toString.call(value) == '[object Object]';
+const isObject = (value) => {
+  return Object.prototype.toString.call(value) == "[object Object]";
 };
 
-const isArray = (value) =>{
-  return Object.prototype.toString.call(value) == '[object Array]';
+const isArray = (value) => {
+  return Object.prototype.toString.call(value) == "[object Array]";
 };
 
-const isPrimitive = (value) =>{
-  return value === null || typeof value !== "object"; 
+const isPrimitive = (value) => {
+  return value === null || typeof value !== "object";
 };
 
-const isDate = (value) =>{
-  return Object.prototype.toString.call(value) == '[object Date]';
+const isDate = (value) => {
+  return Object.prototype.toString.call(value) == "[object Date]";
 };
 
-const isMap = (value) =>{
-  return Object.prototype.toString.call(value) == '[object Map]';
+const isMap = (value) => {
+  return Object.prototype.toString.call(value) == "[object Map]";
 };
 
-const isSet = (value) =>{
-  return Object.prototype.toString.call(value) == '[object Set]';
+const isSet = (value) => {
+  return Object.prototype.toString.call(value) == "[object Set]";
 };
 
-const isNumber = (value) =>{
-  return Number.isInteger(value) && Number.isSafeInteger(value);
+const isFiniteNumber = (value) => {
+  return Number.isFinite(value);
 };
 
-const isAllNumbers = (arr) =>{
-  return arr.every((el) =>{ 
-    return isNumber(el);
+const isAllFinites = (arr) => {
+  return arr.every((el) => {
+    return isFiniteNumber(el);
   });
 };
 
-const isValidArray = (arr) =>{
-  return (isArray(arr) && arr.length !== 0) ? isAllNumbers(arr) : false;
+const isInteger = (value) => {
+  return Number.isInteger(value) && Number.isSafeInteger(value);
 };
 
-const copyObject = (obj) =>{
-  if(isPrimitive(obj)){
+const isAllIntegers = (arr) => {
+  return arr.every((el) => {
+    return isInteger(el);
+  });
+};
+
+const isValidArray = (arr) => {
+  return isArray(arr) && arr.length !== 0 ? isAllFinites(arr) : false;
+};
+
+const copyObject = (obj) => {
+  if (isPrimitive(obj)) {
     return obj;
-
-  }else if(isDate(obj)){
+  } else if (isDate(obj)) {
     return new Date(obj);
-
-  }else if(isArray(obj)){
-    return obj.map((el) =>{
+  } else if (isArray(obj)) {
+    return obj.map((el) => {
       return copyObject(el);
     });
-
-  }else if(isMap(obj)){
+  } else if (isMap(obj)) {
     const newMap = new Map();
-    for (const key of obj.keys()){
-      const value  = copyObject(obj.get(key));
+    for (const key of obj.keys()) {
+      const value = copyObject(obj.get(key));
       newMap.set(key, value);
     }
     return newMap;
-  }else if(isSet(obj)){
+  } else if (isSet(obj)) {
     const newSet = new Set();
-    for(let el of obj){
+    for (let el of obj) {
       newSet.add(copyObject(el));
     }
     return newSet;
-  }else if(isObject(obj)){
+  } else if (isObject(obj)) {
     let result = {};
     for (const key in obj) {
       result[key] = copyObject(obj[key]);
-    };
+    }
     return result;
   }
 };
 
-const makeDeepCopy = (value) =>{
-  if(isPrimitive(value)){
+const makeDeepCopy = (value) => {
+  if (isPrimitive(value)) {
     throw new Error();
-    
-  }else{
+  } else {
     return copyObject(value);
   }
 };
 
-const selectFromInterval = (arr, firstNumber, secondNumber) =>{
-  if(!isValidArray(arr) || !isAllNumbers([firstNumber, secondNumber])){
+const selectFromInterval = (arr, firstNumber, secondNumber) => {
+  if (!isValidArray(arr) || !isAllFinites([firstNumber, secondNumber])) {
     throw new Error();
-  }else{
-    const interval = [firstNumber, secondNumber].sort((a,b) =>{
-      return a-b;
+  } else {
+    const interval = [firstNumber, secondNumber].sort((a, b) => {
+      return a - b;
     });
     const [min, max] = interval;
-    const filteredArr = arr.filter((el) =>{st
-      return (el >= min && el<= max) ? true : false;
+    const filteredArr = arr.filter((el) => {
+      return el >= min && el <= max ? true : false;
     });
     return filteredArr;
   }
 };
 
-const createIterable = (fromNum, toNum) =>{
-  if(!isAllNumbers([fromNum, toNum]) || (fromNum >= toNum)){
+const createIterable = (fromNum, toNum) => {
+  if (!isAllIntegers([fromNum, toNum]) || fromNum >= toNum) {
     throw new Error();
-  }else{
+  } else {
     const obj = {
       from: fromNum,
       to: toNum,
     };
-    obj[Symbol.iterator] = function(){
+    obj[Symbol.iterator] = function () {
       return {
         current: this.from,
         last: this.to,
-        next(){
-          return (this.current <= this.last) ? {done: false, value: this.current++} : {done: true};
-        }
-      }
+        next() {
+          return this.current <= this.last
+            ? { done: false, value: this.current++ }
+            : { done: true };
+        },
+      };
     };
     return obj;
-  } 
+  }
 };
-
-
-
