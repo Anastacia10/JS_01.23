@@ -19,3 +19,16 @@ Array.prototype.customFilter = function (cb, thisArg) {
   }
   return result;
 };
+
+const createDebounceFunction = function (cb, time) {
+  if (typeof cb !== "function") {
+    throw new Error("Callback is not a function");
+  }
+  let isBusy = false;
+  return function () {
+    if (isBusy) return;
+    cb.apply(this, arguments);
+    isBusy = true;
+    setTimeout(() => (isBusy = false), time);
+  };
+};
