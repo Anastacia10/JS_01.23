@@ -35,13 +35,9 @@ const createDebounceFunction = function (cb, time) {
   if (typeof cb !== "function" || !isValidTime(time)) {
     throw new Error();
   }
-  let isBusy = false;
+  let timeId;
   return function () {
-    if (isBusy) return;
-    isBusy = true;
-    setTimeout(() => {
-      isBusy = false;
-      return cb.apply(this, arguments);
-    }, time);
+    clearTimeout(timeId);
+    timeId = setTimeout(() => cb(), time);
   };
 };
