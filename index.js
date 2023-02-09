@@ -38,8 +38,10 @@ const createDebounceFunction = function (cb, time) {
   let isBusy = false;
   return function () {
     if (isBusy) return;
-    cb.apply(this, arguments);
     isBusy = true;
-    setTimeout(() => (isBusy = false), time);
+    setTimeout(() => {
+      isBusy = false;
+      return cb.apply(this, arguments);
+    }, time);
   };
 };
