@@ -8,6 +8,10 @@ const isAllNumbers = (arr) => {
   });
 };
 
+const isInteger = (value) => {
+  return Number.isInteger(value) && Number.isSafeInteger(value);
+};
+
 const sum = (a, b, c) => {
   if (!isAllNumbers([a, b, c])) {
     throw new Error();
@@ -64,5 +68,53 @@ class Calculator {
       throw new Error();
     }
     return this.x / this.y;
+  };
+}
+const charactersURL = "https://rickandmortyapi.com/api/character/";
+const episodesURL = "https://rickandmortyapi.com/api/episode/";
+class RickAndMorty {
+  constructor() {}
+
+  getCharacter = async (id) => {
+    if (!isInteger(id) || id < 0) {
+      throw new Error();
+    } else {
+      const url = `${charactersURL}${id}`;
+      return fetch(url)
+        .then((res) => {
+          if (res.ok) {
+            return res.json();
+          } else if (res.status === 404) {
+            return null;
+          } else {
+            throw new Error();
+          }
+        })
+        .catch((err) => {
+          throw new Error(err);
+        });
+    }
+  };
+
+  getEpisode = async (id) => {
+    if (!isInteger(id) || id < 0) {
+      throw new Error();
+    } else {
+      try {
+        const url = `${episodesURL}${id}`;
+        let res = await fetch(url);
+        if (res.ok) {
+          return res.json();
+        } else if (res.status === 404) {
+          return null;
+        } else {
+          throw new Error();
+        }
+      } catch {
+        (err) => {
+          throw new Error(err);
+        };
+      }
+    }
   };
 }
