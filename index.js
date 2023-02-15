@@ -1,120 +1,70 @@
-const isNumber = (value) => {
-  return typeof value === "number" && isFinite(value);
+const isValidNumber = (value) => {
+  return value >= 0 && Number.isInteger(value) && Number.isSafeInteger(value);
 };
-
-const isAllNumbers = (arr) => {
-  return arr.every((el) => {
-    return isNumber(el);
-  });
-};
-
-const isInteger = (value) => {
-  return Number.isInteger(value) && Number.isSafeInteger(value);
-};
-
-const sum = (a, b, c) => {
-  if (!isAllNumbers([a, b, c])) {
-    throw new Error();
-  } else {
-    return a + b + c;
-  }
-};
-
-const curry = (func) => {
-  return function curried(...args) {
-    if (args.length >= func.length) {
-      return func.apply(this, args);
+class Stack {
+  static fromIterable(iterable) {}
+  constructor(maxSize = 10) {
+    if (isValidNumber(maxSize)) {
+      this._maxSize = maxSize;
+      this._stack = [];
+      this._length = 0;
     } else {
-      return function (...args2) {
-        return curried.apply(this, args.concat(args2));
-      };
-    }
-  };
-};
-class Calculator {
-  constructor(x, y) {
-    if (isAllNumbers([x, y])) {
-      this.x = x;
-      this.y = y;
-    } else {
-      throw new Error();
+      throw new Error("Invalid limit value");
     }
   }
-  setX = (x) => {
-    if (!isNumber(x)) {
-      throw new Error();
+  get stack() {
+    return this._stack;
+  }
+  get maxSize() {
+    return this._maxSize;
+  }
+  get length() {
+    return this._length;
+  }
+  set length(length) {
+    this._length = length;
+  }
+  set stack(stack) {
+    this._stack = stack;
+  }
+  push = (el) => {
+    let length = this.length;
+    if (length === this.maxSize) {
+      throw new Error("Limit exceeded");
     } else {
-      this.x = x;
+      this.stack[length] = el;
+      this.length = length + 1;
     }
   };
-  setY = (y) => {
-    if (!isNumber(y)) {
-      throw new Error();
+  pop = () => {
+    let length = this.length;
+    if (length === 0) {
+      throw new Error("Empty stack");
     } else {
-      this.y = y;
-    }
-  };
-  getSum = () => {
-    return this.x + this.y;
-  };
-  getSub = () => {
-    return this.x - this.y;
-  };
-  getMul = () => {
-    return this.x * this.y;
-  };
-  getDiv = () => {
-    if (this.y === 0) {
-      throw new Error();
-    }
-    return this.x / this.y;
-  };
-}
-const charactersURL = "https://rickandmortyapi.com/api/character/";
-const episodesURL = "https://rickandmortyapi.com/api/episode/";
-class RickAndMorty {
-  constructor() {}
-
-  getCharacter = async (id) => {
-    if (!isInteger(id) || id < 0) {
-      throw new Error();
-    } else {
-      const url = `${charactersURL}${id}`;
-      return fetch(url)
-        .then((res) => {
-          if (res.ok) {
-            return res.json();
-          } else if (res.status === 404) {
-            return null;
-          } else {
-            throw new Error();
-          }
-        })
-        .catch((err) => {
-          throw new Error(err);
-        });
-    }
-  };
-
-  getEpisode = async (id) => {
-    if (!isInteger(id) || id < 0) {
-      throw new Error();
-    } else {
-      try {
-        const url = `${episodesURL}${id}`;
-        let res = await fetch(url);
-        if (res.ok) {
-          return res.json();
-        } else if (res.status === 404) {
-          return null;
-        } else {
-          throw new Error();
-        }
-      } catch {
-        (err) => {
-          throw new Error(err);
-        };
+      const newStack = [];
+      this.length = length - 1;
+      for (let i = 0; i < this.length; i++) {
+        newStack[i] = this.stack[i];
       }
+      this.stack = newStack;
     }
+  };
+  peek = () => {
+    if (this.length === 0) {
+      return null;
+    } else {
+      return this.stack[this.length - 1];
+    }
+  };
+  isEmpty = () => {
+    return this.length === 0 ? true : false;
+  };
+  toArray = () => {
+    const newArray = [];
+    const length = this.length;
+    for (let i = 0; i < length; i++) {
+      newArray[i] = this.stack[i];
+    }
+    return newArray;
   };
 }
