@@ -2,7 +2,17 @@ const isValidNumber = (value) => {
   return value >= 0 && Number.isInteger(value) && Number.isSafeInteger(value);
 };
 class Stack {
-  static fromIterable(iterable) {}
+  static fromIterable(iterable) {
+    if (typeof iterable[Symbol.iterator] !== "function") {
+      throw new Error("Not iterable");
+    } else {
+      const newStack = new Stack(iterable.length);
+      for (let i = 0; i < iterable.length; i++) {
+        newStack.push(iterable[i]);
+      }
+      return newStack;
+    }
+  }
   constructor(maxSize = 10) {
     if (isValidNumber(maxSize)) {
       this._maxSize = maxSize;
@@ -41,12 +51,10 @@ class Stack {
     if (length === 0) {
       throw new Error("Empty stack");
     } else {
-      const newStack = [];
+      const deletedElem = this.stack[length - 1];
+      delete this.stack[this.length - 1];
       this.length = length - 1;
-      for (let i = 0; i < this.length; i++) {
-        newStack[i] = this.stack[i];
-      }
-      this.stack = newStack;
+      return deletedElem;
     }
   };
   peek = () => {
