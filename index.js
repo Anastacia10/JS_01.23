@@ -157,106 +157,105 @@ class Node {
   }
 }
 class Car {
-  constructor() {
-    this._brand = "";
-    this._model = "";
-    this._yearOfManufacturing = 1950;
-    this._maxSpeed = 100;
-    this._maxFuelVolume = 20;
-    this._fuelConsumption = 1;
-    this._damage = 1;
-    this._currentFuelVolume = 0;
-    this._isStarted = false;
-    this._mileage = 0;
-    this._health = 100;
-  }
+  #brand = "";
+  #model = "";
+  #yearOfManufacturing = 1950;
+  #maxSpeed = 100;
+  #maxFuelVolume = 20;
+  #fuelConsumption = 1;
+  #damage = 1;
+  #currentFuelVolume = 0;
+  #isStarted = false;
+  #mileage = 0;
+  #health = 100;
+
   get brand() {
-    return this._brand;
+    return this.#brand;
   }
   get model() {
-    return this._model;
+    return this.#model;
   }
   get yearOfManufacturing() {
-    return this._yearOfManufacturing;
+    return this.#yearOfManufacturing;
   }
   get maxSpeed() {
-    return this._maxSpeed;
+    return this.#maxSpeed;
   }
   get maxFuelVolume() {
-    return this._maxFuelVolume;
+    return this.#maxFuelVolume;
   }
   get fuelConsumption() {
-    return this._fuelConsumption;
+    return this.#fuelConsumption;
   }
   get damage() {
-    return this._damage;
+    return this.#damage;
   }
   get currentFuelVolume() {
-    return this._currentFuelVolume;
+    return this.#currentFuelVolume;
   }
   get mileage() {
-    return this._mileage;
+    return this.#mileage;
   }
   get health() {
-    return this._health;
+    return this.#health;
   }
   get isStarted() {
-    return this._isStarted;
+    return this.#isStarted;
   }
   set brand(string) {
     if (!isValidString(string)) {
       throw new Error("Invalid brand name");
     } else {
-      this._brand = string;
+      this.#brand = string;
     }
   }
   set model(string) {
     if (!isValidString(string)) {
       throw new Error("Invalid model name");
     } else {
-      this._model = string;
+      this.#model = string;
     }
   }
   set yearOfManufacturing(year) {
     if (!isValidYear(year)) {
       throw new Error("Invalid year of manufacturing");
     } else {
-      this._yearOfManufacturing = year;
+      this.#yearOfManufacturing = year;
     }
   }
   set maxSpeed(speed) {
     if (!isValidMaxSpeed(speed)) {
       throw new Error("Invalid max speed");
     } else {
-      this._maxSpeed = speed;
+      this.#maxSpeed = speed;
     }
   }
   set maxFuelVolume(volume) {
     if (!isValidMaxFuelVolume(volume)) {
       throw new Error("Invalid max speed");
     } else {
-      this._maxFuelVolume = volume;
+      this.#maxFuelVolume = volume;
     }
   }
   set fuelConsumption(degree) {
     if (!isValidFuelConsumption(degree)) {
       throw new Error("Invalid fuel consumption");
     } else {
-      this._fuelConsumption = degree;
+      this.#fuelConsumption = degree;
     }
   }
   set damage(degree) {
     if (!isValidDamage(degree)) {
       throw new Error("Invalid damage");
     } else {
-      this._damage = degree;
+      this.#damage = degree;
     }
   }
   start = () => {
     if (this.isStarted) {
       throw new Error("Car has already started");
     } else {
-      this._isStarted = true;
+      this.#isStarted = true;
     }
   };
 
@@ -264,7 +263,7 @@ class Car {
     if (!this.isStarted) {
       throw new Error("Car hasn't started yet");
     } else {
-      this._isStarted = false;
+      this.#isStarted = false;
     }
   };
 
@@ -277,7 +276,7 @@ class Car {
     } else if (volume > amountToFillTank) {
       throw new Error("Too much fuel");
     } else {
-      this._currentFuelVolume += volume;
+      this.#currentFuelVolume += volume;
     }
   };
 
@@ -299,9 +298,9 @@ class Car {
       } else if (calculatedDamage > this.health) {
         throw new Error("Your car won’t make it");
       } else {
-        this._currentFuelVolume -= neededFuelVolume;
-        this._health -= calculatedDamage;
-        this._mileage += miles;
+        this.#currentFuelVolume -= neededFuelVolume;
+        this.#health -= calculatedDamage;
+        this.#mileage += miles;
       }
     }
   };
@@ -314,7 +313,7 @@ class Car {
       if (!amountToFillTank === 0) {
         throw new Error("You have to fill up your gas tank first");
       }
-      this._health = 100;
+      this.#health = 100;
     }
   };
 
