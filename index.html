@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./src/css/index.css" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div class="container">
+      <div class="calculator">
+        <div class="calculator_screen">
+          <p class="calculator_screen_result"></p>
+        </div>
+        <form class="calculator_inputs">
+          <div>
+            <input id="C" class="operators_resetAll" value="C" type="button"></input>
+            <input id="+/-" class="operators_switchSign" value="+/-" type="button"></input>
+            <input id="Del" class="operators_deleteOneChar" value="Del" type="button"></input>
+            <input id="/" class="operators_operation" value="/" type="button"></input>
+          </div>
+          <div>
+            <input id="7" class="numbers" value="7" type="button"></input>
+            <input id="8" class="numbers" value="8" type="button"></input>
+            <input id="9" class="numbers" value="9" type="button"></input>
+            <input id="*" class="operators_operation" value="*" type="button"></input>
+          </div>
+          <div>
+            <input id="4" class="numbers" value="4" type="button"></input>
+            <input id="5" class="numbers" value="5" type="button"></input>
+            <input id="6" class="numbers" value="6" type="button"></input>
+            <input id="-" class="operators_operation" value="-" type="button"></input>
+          </div>
+          <div>
+            <input id="1" class="numbers" value="1" type="button"></input>
+            <input id="2" class="numbers" value="2" type="button"></input>
+            <input id="3" class="numbers" value="3" type="button"></input>
+            <input id="+" class="operators_operation" value="+" type="button"></input>
+          </div>
+          <div>
+            <input id="0" class="numbers" value="0" type="button"></input>
+            <input id="00" class="numbers" value="00" type="button"></input>
+            <input id="." class="numbers" value="." type="button"></input>
+            <input id="result" class="operators_result" type="submit" value="="></input>
+          </div>
+        </form>
+      </div>
+    </div>
+    <script type="module" src="./src/js/index.js"></script>
+  </body>
+</html>

@@ -1,0 +1,95 @@
+$bgColorPrime: #DAF0FF
+$bgColorCalculator:#F7F8FB
+$bgButtonGen:#FFFFFF
+$tColorButtonGen: #38B9FF
+$tColorScreenResult: #424242
+$fontFamily: Poppins, sans-serif
+$fontSizeBig: 48px
+$fontSizeMiddle: 32px
+$fontSizeSmall: 24px
+$fontWeightBold: 500
+$fontWeightThick: 400
+$lineHeightBig: 72px
+$lineHeightMiddle: 48px
+$lineHeightSmall: 36px
+
+
+
+html
+	box-sizing: border-box
+
+*,
+*:before,
+*:after
+	box-sizing: inherit
+
+*
+	margin: 0
+	padding: 0
+
+body
+	background-color: $bgColorPrime
+	font-family: $fontFamily
+
+.container
+	max-width: 100%
+	min-height: 100vh
+	padding-left: calc(50% - 570px)
+	padding-right: calc(50% - 570px)
+	display: flex
+	justify-content: center
+	align-items: center
+
+.calculator
+	width: 375px
+	height: 595px
+	border-radius: 39px
+	background-color: $bgColorCalculator
+	padding: 20px
+	box-shadow: 20px 5px 20px rgba(96, 190, 255, 0.55)
+	margin-top: 20px
+	margin-bottom: 20px
+	&_screen
+		display: flex
+		justify-content: end
+		align-items: end
+		height: 160px
+		color: $tColorScreenResult
+		font-size: $fontSizeMiddle
+		font-weight: $fontWeightBold
+		line-height: $lineHeightBig
+		text-align: center
+
+	&_inputs
+		display: flex
+		align-self: flex-end
+		flex-direction: column
+		align-items: center
+		row-gap: 20px
+		& div
+			display: flex
+			column-gap: 20px
+			& input
+				width: 62px
+				height: 60px
+				padding: 6px 4px
+				background-color: $bgButtonGen
+				border-color: white
+				border-radius: 16px
+				color: $tColorButtonGen
+				font-size: $fontSizeMiddle
+				font-weight: $fontWeightBold
+				line-height: $lineHeightMiddle
+				backdrop-filter: blur(6px)
+				text-align: center
+			.operators
+				background-color: $bgColorPrime
+
+		
+
+	
+
+  
+
+
+
