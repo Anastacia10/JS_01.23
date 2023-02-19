@@ -44,7 +44,6 @@ export const calculateResult = (state) => {
 };
 
 export const resetAll = (state) => {
-  console.log(state);
   state.mainMemory = "";
   state.temporaryMemory = "";
   state.operator = null;

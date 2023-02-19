@@ -14,7 +14,11 @@ export default () => {
 
   const render = (state, { screenResult }) => {
     console.log(state);
-    screenResult.textContent = state.mainMemory;
+    if (state.mainMemory.length === 0) {
+      screenResult.textContent = 0;
+    } else {
+      screenResult.textContent = state.mainMemory;
+    }
   };
 
   const state = {
