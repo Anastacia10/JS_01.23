@@ -32,3 +32,10 @@ export const getKeyType = (key) => {
   const isValidNumber = Number.isFinite(+key) && +key <= 9 && +key >= 0;
   return isValidNumber ? "number" : key;
 };
+
+export const isZeroInStartOfOneCharStr = (str) => {
+  const length = str.length;
+  const firstChar = str[0];
+  const isOneCharString = length === 1;
+  return isOneCharString && firstChar === "0";
+};

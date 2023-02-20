@@ -45,7 +45,7 @@ body {
   align-items: end;
   height: 160px;
   color: #424242;
-  font-size: 32px;
+  font-size: 28px;
   font-weight: 500;
   line-height: 72px;
   text-align: center;
@@ -70,7 +70,7 @@ body {
   border-color: white;
   border-radius: 16px;
   color: #38B9FF;
-  font-size: 32px;
+  font-size: 28px;
   font-weight: 500;
   line-height: 48px;
   -webkit-backdrop-filter: blur(6px);

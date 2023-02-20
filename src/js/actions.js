@@ -1,11 +1,37 @@
-import { add, multiply, substract, divide } from "./utils/utils.js";
+import {
+  add,
+  multiply,
+  substract,
+  divide,
+  isZeroInStartOfOneCharStr,
+} from "./utils/utils.js";
 
 export const recordOperand = (state, value) => {
   if (state.isFinished) {
     state.isFinished = false;
     state.mainMemory = "";
   }
-  state.mainMemory += value;
+
+  if (state.mainMemory.length === state.uiLimit) {
+    return state;
+  }
+
+  if (
+    isZeroInStartOfOneCharStr(state.mainMemory) &&
+    (value === "0" || value === "00")
+  ) {
+    return state;
+  } else {
+    state.mainMemory += value;
+  }
+};
+
+export const makeDecimalNumber = (state) => {
+  if (state.mainMemory.includes(".")) {
+    return state;
+  } else if (state.mainMemory !== "") {
+    state.mainMemory += ".";
+  }
 };
 
 export const prepareForRecordNextOperand = (state, value) => {
@@ -33,7 +59,11 @@ export const calculateResult = (state) => {
       state.mainMemory = multiply(+state.temporaryMemory, +state.mainMemory);
       break;
     case "/":
-      state.mainMemory = divide(+state.temporaryMemory, +state.mainMemory);
+      if (state.mainMemory === "0") {
+        state.mainMemory = "";
+      } else {
+        state.mainMemory = divide(+state.temporaryMemory, +state.mainMemory);
+      }
       break;
     default:
       break;

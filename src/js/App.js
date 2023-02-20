@@ -5,6 +5,7 @@ import {
   calculateResult,
   resetAll,
   deleteOneChar,
+  makeDecimalNumber,
 } from "./actions.js";
 import { getClass, getKeyType } from "./utils/utils.js";
 
@@ -16,6 +17,8 @@ export default () => {
     console.log(state);
     if (state.mainMemory.length === 0) {
       screenResult.textContent = 0;
+    } else if (state.mainMemory.length >= state.uiLimit) {
+      screenResult.textContent = `Uilimit is ${state.uiLimit} symbols, sorry`;
     } else {
       screenResult.textContent = state.mainMemory;
     }
@@ -26,6 +29,7 @@ export default () => {
     temporaryMemory: "",
     operator: null,
     isFinished: true,
+    uiLimit: 18,
   };
 
   calculator.addEventListener("click", (e) => {
@@ -37,6 +41,10 @@ export default () => {
     switch (classTarget) {
       case "numbers":
         recordOperand(state, value);
+        render(state, { screenResult });
+        break;
+      case "numbers_point":
+        makeDecimalNumber(state);
         render(state, { screenResult });
         break;
       case "operators_operation":
@@ -72,7 +80,7 @@ export default () => {
         render(state, { screenResult });
         break;
       case ".":
-        recordOperand(state, e.key);
+        makeDecimalNumber(state, e.key);
         render(state, { screenResult });
         break;
       case "+":
