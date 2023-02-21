@@ -14,7 +14,6 @@ export default () => {
   const screenResult = document.querySelector(".calculator_screen_result");
 
   const render = (state, { screenResult }) => {
-    console.log(state);
     if (state.mainMemory.length === 0) {
       screenResult.textContent = 0;
     } else if (state.mainMemory.length >= state.uiLimit) {
@@ -29,7 +28,7 @@ export default () => {
     temporaryMemory: "",
     operator: null,
     isFinished: true,
-    uiLimit: 18,
+    uiLimit: 21,
   };
 
   calculator.addEventListener("click", (e) => {
