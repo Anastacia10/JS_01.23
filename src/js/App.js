@@ -19,6 +19,7 @@ export default () => {
       screenResult.textContent = 0;
     } else if (state.mainMemory.length >= state.uiLimit) {
       screenResult.textContent = `Uilimit is ${state.uiLimit} symbols, sorry`;
+      screenlog.textContent = ``;
     } else {
       screenResult.textContent = state.mainMemory;
     }
@@ -36,7 +37,7 @@ export default () => {
     temporaryMemory: "",
     operator: "",
     isFinished: true,
-    uiLimit: 21,
+    uiLimit: 18,
   };
 
   calculator.addEventListener("click", (e) => {
