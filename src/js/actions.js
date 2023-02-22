@@ -11,16 +11,17 @@ export const recordOperand = (state, value) => {
     state.isFinished = false;
     state.mainMemory = "";
   }
-
   if (state.mainMemory.length === state.uiLimit) {
     return state;
   }
-
-  if (
-    isZeroInStartOfOneCharStr(state.mainMemory) &&
-    (value === "0" || value === "00")
-  ) {
+  if (!state.mainMemory && value === "00") {
+    state.mainMemory += "";
+  } else if (isZeroInStartOfOneCharStr(state.mainMemory) && value === "00") {
     return state;
+  } else if (isZeroInStartOfOneCharStr(state.mainMemory) && value === "0") {
+    return state;
+  } else if (isZeroInStartOfOneCharStr(state.mainMemory)) {
+    state.mainMemory = value;
   } else {
     state.mainMemory += value;
   }
@@ -59,7 +60,12 @@ export const calculateResult = (state) => {
       state.mainMemory = multiply(+state.temporaryMemory, +state.mainMemory);
       break;
     case "/":
-      if (state.mainMemory === "0") {
+      if (
+        state.mainMemory === "0" ||
+        state.mainMemory === "00" ||
+        state.mainMemory === ""
+      ) {
+        alert("You cannot divide on 0");
         state.mainMemory = "";
       } else {
         state.mainMemory = divide(+state.temporaryMemory, +state.mainMemory);
@@ -69,14 +75,14 @@ export const calculateResult = (state) => {
       break;
   }
   state.temporaryMemory = "";
-  state.operator = null;
+  state.operator = "";
   state.isFinished = true;
 };
 
 export const resetAll = (state) => {
   state.mainMemory = "";
   state.temporaryMemory = "";
-  state.operator = null;
+  state.operator = "";
   state.isFinished = false;
 };
 
